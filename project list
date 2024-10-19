@@ -1,0 +1,52 @@
+struct ProjectListView: View {
+    @State private var projects = [Project]()
+    @State private var selectedFilter = "Current"
+    @State private var isAdmin = false // Based on user's role
+
+    var body: some View {
+        VStack {
+            Picker("Filter", selection: $selectedFilter) {
+                Text("Current").tag("Current")
+                Text("Previous").tag("Previous")
+                Text("Upcoming").tag("Upcoming")
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding()
+
+            List(projects.filter { project in
+                project.type == selectedFilter
+            }) { project in
+                NavigationLink(destination: ProjectDetailView(project: project)) {
+                    ProjectRowView(project: project)
+                }
+            }
+
+            if isAdmin {
+                Button(action: createNewProject) {
+                    Text("Create New Project")
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(5)
+                }
+            }
+        }
+        .navigationBarTitle("Projects")
+    }
+
+    func createNewProject() {
+        // Admin-only project creation logic
+    }
+}
+
+struct ProjectRowView: View {
+    var project: Project
+
+    var body: some View {
+        HStack {
+            Text(project.name)
+            Spacer()
+            Text(project.status) // On track / Not on track
+        }
+    }
+}
