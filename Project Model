@@ -1,0 +1,6 @@
+struct Project: Identifiable {
+    var id = UUID()
+    var name: String
+    var type: String // Current, Previous, Upcoming
+    var status: String // On track / Not on track
+}
