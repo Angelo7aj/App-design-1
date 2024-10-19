@@ -1,0 +1,32 @@
+struct ProjectDetailView: View {
+    var project: Project
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading) {
+                HStack {
+                    Text("Plans / Addendums")
+                    Spacer()
+                    Button(action: {
+                        // Add new file logic
+                    }) {
+                        Text("Add New File")
+                    }
+                }
+                .padding()
+                
+                // Gantt Chart Section
+                HStack {
+                    Text("Gantt Chart")
+                    Spacer()
+                    // Thumbnail Gantt view, expandable
+                }
+                .padding()
+
+                // Other sections: Finances, Vendors, etc.
+            }
+            .padding()
+        }
+        .navigationBarTitle(project.name)
+    }
+}
